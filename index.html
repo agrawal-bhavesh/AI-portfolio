@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus | AI & Software Engineer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+        
+        :root {
+            --primary: #00f0ff;
+            --secondary: #ff00f0;
+            --dark: #0a0a1a;
+            --light: #f0f0ff;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .card {
+            background: rgba(10, 10, 26, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 240, 255, 0.2);
+        }
+        
+        .glow {
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.7);
+        }
+        
+        .terminal {
+            background-color: #0a0a1a;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .terminal-header {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(0, 240, 255, 0.3);
+        }
+        
+        .terminal-body {
+            min-height: 200px;
+        }
+        
+        .cursor {
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .neon-border {
+            position: relative;
+        }
+        
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid var(--primary);
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 2px;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary) }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js" class="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-black bg-opacity-80 backdrop-filter backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-2xl font-bold gradient-text">NEXUS</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-cyan-300 transition">Home</a>
+                        <a href="#about" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-pink-300 transition">About</a>
+                        <a href="#projects" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-cyan-300 transition">Projects</a>
+                        <a href="#skills" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-pink-300 transition">Skills</a>
+                        <a href="#contact" class="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-cyan-300 transition">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button class="mobile-menu-button p-2 rounded-md text-gray-400 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu hidden md:hidden fixed w-full z-40 bg-black bg-opacity-90 backdrop-filter backdrop-blur-lg">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Home</a>
+            <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">About</a>
+            <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Projects</a>
+            <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Skills</a>
+            <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Contact</a>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 glow">
+                <span class="gradient-text">Hello, I'm Nexus</span>
+            </h1>
+            <div class="typewriter text-2xl md:text-4xl mb-8">
+                <span class="gradient-text">AI Developer & Software Engineer</span>
+            </div>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-12">
+                Building intelligent systems and scalable software solutions that push the boundaries of technology.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#projects" class="px-8 py-3 rounded-full gradient-bg text-white font-bold hover:opacity-90 transition">
+                    View My Work
+                </a>
+                <a href="#contact" class="px-8 py-3 rounded-full border-2 border-cyan-400 text-cyan-400 font-bold hover:bg-cyan-400 hover:bg-opacity-10 transition">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-16 text-center gradient-text">About Me</h2>
+            
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <div class="lg:w-1/2">
+                    <div class="terminal neon-border">
+                        <div class="terminal-header p-3 flex items-center">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <div class="ml-4 text-sm text-gray-400">nexus_profile.txt</div>
+                        </div>
+                        <div class="terminal-body p-6">
+                            <p class="text-green-400">$ whoami</p>
+                            <p class="mb-4">Nexus - AI Developer & Software Engineer</p>
+                            
+                            <p class="text-green-400">$ cat about.txt</p>
+                            <p class="mb-2">> Passionate about artificial intelligence and software development</p>
+                            <p class="mb-2">> 5+ years of experience in machine learning and software engineering</p>
+                            <p class="mb-2">> Specialized in neural networks, computer vision, and cloud computing</p>
+                            <p class="mb-2">> Strong background in Python, TensorFlow, PyTorch, and cloud platforms</p>
+                            <p class="mb-2">> Committed to creating ethical and responsible AI solutions</p>
+                            
+                            <p class="text-green-400">$ <span class="cursor">|</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6">Transforming Ideas into Intelligent Solutions</h3>
+                    <p class="mb-6 text-gray-300">
+                        I bridge the gap between cutting-edge AI research and practical software applications. My work focuses on developing systems that learn, adapt, and improve over time, creating value for businesses and society.
+                    </p>
+                    <p class="mb-6 text-gray-300">
+                        With a strong foundation in both theoretical computer science and hands-on engineering, I approach problems from multiple perspectives to deliver robust, scalable solutions.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-microchip text-cyan-400 mr-3"></i>
+                            <span>Machine Learning</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-brain text-pink-400 mr-3"></i>
+                            <span>Neural Networks</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-cloud text-cyan-400 mr-3"></i>
+                            <span>Cloud Computing</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-robot text-pink-400 mr-3"></i>
+                            <span>Computer Vision</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-16 text-center gradient-text">Featured Projects</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="card rounded-lg p-6 neon-border">
+                    <div class="gradient-text text-2xl font-bold mb-4">NeuroVision</div>
+                    <p class="text-gray-300 mb-4">
+                        Advanced computer vision system that interprets complex visual data in real-time using deep learning.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">Python</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">TensorFlow</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">OpenCV</span>
+                    </div>
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center">
+                        View Project <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="card rounded-lg p-6 neon-border">
+                    <div class="gradient-text text-2xl font-bold mb-4">QuantumML</div>
+                    <p class="text-gray-300 mb-4">
+                        Quantum machine learning framework that accelerates model training using quantum computing principles.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">Qiskit</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">PyTorch</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">Quantum</span>
+                    </div>
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center">
+                        View Project <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="card rounded-lg p-6 neon-border">
+                    <div class="gradient-text text-2xl font-bold mb-4">SentinelAI</div>
+                    <p class="text-gray-300 mb-4">
+                        Cybersecurity AI that detects and mitigates threats using behavioral analysis and anomaly detection.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">Python</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">Scikit-learn</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">AWS</span>
+                    </div>
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center">
+                        View Project <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="card rounded-lg p-6 neon-border">
+                    <div class="gradient-text text-2xl font-bold mb-4">AutoML Studio</div>
+                    <p class="text-gray-300 mb-4">
+                        No-code platform for building and deploying machine learning models with automated feature engineering.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">React</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">Flask</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">AutoML</span>
+                    </div>
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center">
+                        View Project <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="card rounded-lg p-6 neon-border">
+                    <div class="gradient-text text-2xl font-bold mb-4">NLP Explorer</div>
+                    <p class="text-gray-300 mb-4">
+                        Interactive toolkit for natural language processing with pre-trained models and visualization tools.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">NLTK</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">Spacy</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">Transformers</span>
+                    </div>
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center">
+                        View Project <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Project 6 -->
+                <div class="card rounded-lg p-6 neon-border">
+                    <div class="gradient-text text-2xl font-bold mb-4">EdgeAI Runtime</div>
+                    <p class="text-gray-300 mb-4">
+                        Optimized inference engine for running AI models on edge devices with limited computational resources.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">C++</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">TensorRT</span>
+                        <span class="px-2 py-1 bg-gray-800 rounded text-xs">ONNX</span>
+                    </div>
+                    <a href="#" class="text-cyan-400 hover:text-cyan-300 flex items-center">
+                        View Project <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="px-6 py-3 rounded-full border-2 border-cyan-400 text-cyan-400 font-bold hover:bg-cyan-400 hover:bg-opacity-10 transition inline-flex items-center">
+                    View All Projects <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-16 text-center gradient-text">Technical Skills</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">AI/ML Expertise</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Deep Learning</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="gradient-bg h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Computer Vision</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="gradient-bg h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Natural Language Processing</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="gradient-bg h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Reinforcement Learning</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="gradient-bg h-2 rounded-full" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Software Development</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Python</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="gradient-bg h-2 rounded-full" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>JavaScript/TypeScript</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="gradient-bg h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>Cloud Architecture</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="gradient-bg h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span>DevOps & MLOps</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="gradient-bg h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                <h3 class="text-2xl font-bold mb-8 text-center">Technologies I Work With</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <div class="tech-icon" title="Python">
+                        <i class="fab fa-python text-4xl text-blue-400"></i>
+                    </div>
+                    <div class="tech-icon" title="TensorFlow">
+                        <i class="fas fa-brain text-4xl text-orange-400"></i>
+                    </div>
+                    <div class="tech-icon" title="PyTorch">
+                        <i class="fas fa-fire text-4xl text-red-400"></i>
+                    </div>
+                    <div class="tech-icon" title="AWS">
+                        <i class="fab fa-aws text-4xl text-yellow-400"></i>
+                    </div>
+                    <div class="tech-icon" title="Docker">
+                        <i class="fab fa-docker text-4xl text-blue-500"></i>
+                    </div>
+                    <div class="tech-icon" title="Kubernetes">
+                        <i class="fas fa-ship text-4xl text-blue-300"></i>
+                    </div>
+                    <div class="tech-icon" title="React">
+                        <i class="fab fa-react text-4xl text-cyan-400"></i>
+                    </div>
+                    <div class="tech-icon" title="Node.js">
+                        <i class="fab fa-node-js text-4xl text-green-500"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-16 text-center gradient-text">Get In Touch</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Let's Build Something Amazing</h3>
+                    <p class="text-gray-300 mb-8">
+                        Whether you have a project in mind, want to collaborate, or just want to talk about AI and technology, I'd love to hear from you.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center">
+                            <div class="gradient-bg p-3 rounded-full mr-4">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-400">Email</div>
+                                <a href="mailto:contact@nexus.dev" class="hover:text-cyan-400 transition">contact@nexus.dev</a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="gradient-bg p-3 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-400">Location</div>
+                                <div>San Francisco, CA</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="gradient-bg p-3 rounded-full mr-4">
+                                <i class="fas fa-globe text-white"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm text-gray-400">Social</div>
+                                <div class="flex space-x-4 mt-1">
+                                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition"><i class="fab fa-github"></i></a>
+                                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition"><i class="fab fa-medium"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-1">Name</label>
+                            <input type="text" id="name" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent" placeholder="Your name">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                            <input type="email" id="email" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent" placeholder="Your email">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium mb-1">Subject</label>
+                            <input type="text" id="subject" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent" placeholder="Subject">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium mb-1">Message</label>
+                            <textarea id="message" rows="5" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent" placeholder="Your message"></textarea>
+                        </div>
+                        <button type="submit" class="w-full px-6 py-3 rounded-full gradient-bg text-white font-bold hover:opacity-90 transition">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-12 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <span class="text-2xl font-bold gradient-text">NEXUS</span>
+                    <p class="text-gray-400 mt-2">Pushing the boundaries of AI and software engineering.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-cyan-400 transition"><i class="fab fa-medium"></i></a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
+                &copy; 2023 Nexus. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#00f0ff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#00f0ff", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "grab" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                },
+                modes: {
+                    grab: { distance: 140, line_linked: { opacity: 1 } },
+                    push: { particles_nb: 4 }
+                }
+            }
+        });
+        
+        // Typewriter effect
+        const typewriterElements = document.querySelectorAll('.typewriter');
+        typewriterElements.forEach(el => {
+            const text = el.textContent;
+            el.textContent = '';
+            
+            let i = 0;
+            const speed = 50;
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    el.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+            
+            setTimeout(typeWriter, 1000);
+        });
+    </script>
+</body>
+</html>
